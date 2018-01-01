@@ -1,0 +1,13 @@
+{
+    "name": "feliscode/elasticsearch-bundle",
+    "description": "Elasticsearch Bundle for Symfony",
+    "type": "symfony-bundle",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Dominik Pawelec",
+            "email": "dominik@feliscode.com"
+        }
+    ],
+    "require": {}
+}
