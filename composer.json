@@ -9,5 +9,13 @@
             "email": "dominik@feliscode.com"
         }
     ],
-    "require": {}
+    "require": {
+        "ruflin/elastica": "dev-master"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^6.5"
+    },
+    "autoload": {
+        "psr-4": { "Feliscode\\ElasticSearchBundle\\": "" }
+    }
 }
