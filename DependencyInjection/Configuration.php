@@ -21,8 +21,7 @@ class Configuration implements ConfigurationInterface
         $rootNode
             ->children()
 
-                ->arrayNode('clients')
-                    ->useAttributeAsKey('client_name')
+                ->arrayNode('connections')
                     ->arrayPrototype()
                         ->children()
                             ->scalarNode('host')->end()
