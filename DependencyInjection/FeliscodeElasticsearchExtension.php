@@ -14,23 +14,51 @@ use Symfony\Component\DependencyInjection\Loader;
 class FeliscodeElasticsearchExtension extends Extension
 {
     /**
+     * @var ContainerBuilder
+     */
+    private $containerBuilder;
+
+    /**
      * {@inheritdoc}
      */
     public function load(array $configs, ContainerBuilder $container)
     {
+        $this->containerBuilder = $container;
+
         $configuration = new Configuration();
         $config = $this->processConfiguration($configuration, $configs);
 
-        foreach ($config['templates'] as $templateName => $templateFilePath) {
+        $this->containerBuilder->setParameter('feliscode_elasticsearch.clients', $config['clients']);
+
+        foreach ($config['clients'] as $clientName => $clientData) {
+            $this->initClientConfig($clientName, $clientData);
+        }
+
+        $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
+        $loader->load('services.yml');
+    }
+
+    /**
+     * @param string $clientName
+     * @param array $clientConfigData
+     * @return void
+     */
+    private function initClientConfig(string $clientName, array $clientConfigData): void
+    {
+
+        foreach ($clientConfigData['templates'] as $templateName => $templateFilePath) {
             if (false === file_exists($templateFilePath)) {
                 throw new RuntimeException(sprintf('File %s does not exist.', $templateFilePath));
             }
         }
 
-        $container->setParameter('feliscode_elasticsearch.config.connections', $config['connections']);
-        $container->setParameter('feliscode_elasticsearch.config.templates', $config['templates']);
-
-        $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
-        $loader->load('services.yml');
+        $this->containerBuilder->setParameter(
+            sprintf('feliscode_elasticsearch.%s.templates', $clientName),
+            $clientConfigData['templates']
+        );
+        $this->containerBuilder->setParameter(
+            sprintf('feliscode_elasticsearch.%s.indexes', $clientName),
+            $clientConfigData['indexes']
+        );
     }
 }
