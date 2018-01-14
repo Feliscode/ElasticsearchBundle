@@ -50,6 +50,7 @@ class Configuration implements ConfigurationInterface
                                     ->scalarNode('name')->isRequired()->end()
                                     ->scalarNode('type')->isRequired()->end()
                                     ->scalarNode('model')->isRequired()->end()
+                                    ->scalarNode('manager')->defaultNull()->end()
                                     ->arrayNode('fields')
                                         ->useAttributeAsKey('field')
                                         ->arrayPrototype()

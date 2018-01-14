@@ -2,3 +2,6 @@ services:
     feliscode_elasticsearch.registry.client:
         class: Feliscode\ElasticsearchBundle\Registry\ClientRegistry
 
+    feliscode_elasticsearch.registry.index:
+        class: Feliscode\ElasticsearchBundle\Registry\IndexRegistry
+
