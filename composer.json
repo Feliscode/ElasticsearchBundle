@@ -17,9 +17,10 @@
         "symfony/dependency-injection": "^3.3|^4"
     },
     "require-dev": {
-        "phpunit/phpunit": "^6.5"
+        "phpunit/phpunit": "^6.5",
+        "symfony/phpunit-bridge": "^3.2|^4.0"
     },
     "autoload": {
-        "psr-4": { "Feliscode\\ElasticSearchBundle\\": "" }
+        "psr-4": { "Feliscode\\ElasticsearchBundle\\": "" }
     }
 }
